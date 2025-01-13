@@ -36,21 +36,52 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-function playGame() {
-    let numGames = 5;
-    for (let i = 0; i < numGames; i++) {
-        console.log(playRound(getHumanChoice(), getComputerChoice()));
-        console.log("Current Score:");
-        console.log("Human: " + humanScore);
-        console.log("Computer: " + computerScore);
-    }
-}
+// function playGame() {
+//     // let numGames = 5;
+//     // for (let i = 0; i < numGames; i++) {
+//     console.log(playRound(getHumanChoice(), getComputerChoice()));
+//     console.log("Current Score:");
+//     console.log("Human: " + humanScore);
+//     console.log("Computer: " + computerScore);
+//     // }
+// }
 
 
 let humanScore = 0;
 let computerScore = 0;
 
-playGame()
-// console.log(playRound(getHumanChoice(), getComputerChoice()));
-// console.log(getComputerChoice())
-// console.log(getHumanChoice())
+// playGame()
+
+const choices = document.querySelector(".choices");
+const resultsDiv = document.querySelector(".results");
+const result = document.createElement("p");
+result.innerHTML = `Current Score:<br>Human: ${humanScore}<br>Computer: ${computerScore}`;
+resultsDiv.appendChild(result);
+const gameOver = document.createElement("p");
+resultsDiv.appendChild(gameOver);
+
+
+function handleChoices(e) {
+    let humanChoice = e.target.id;
+
+    console.log(playRound(humanChoice, getComputerChoice()));
+    console.log("Current Score:");
+    console.log("Human: " + humanScore);
+    console.log("Computer: " + computerScore);
+    result.innerHTML = `Current Score:<br>Human: ${humanScore}<br>Computer: ${computerScore}`;
+    gameOver.textContent = ``;
+
+    if ((humanScore == 5) || (computerScore) == 5) {
+        if (humanScore > computerScore) 
+            gameOver.textContent = `Game over! You won!`;
+        else
+            gameOver.textContent = `Game over! Computer won!`;
+
+        humanScore = 0;
+        computerScore = 0;
+        
+    }
+
+}
+
+choices.addEventListener("click", handleChoices);
